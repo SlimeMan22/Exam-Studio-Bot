@@ -37,7 +37,7 @@ function getIdFromName(message, name) {
 
 var commands = {
     help: function(message, msg) {
-        message.channel.send('<@'+message.author.id+'> here is my command list:\n```•help\n•ping\n•exile\n•setrank\n•promote\n•demote\n•post\n•shout\n•ban\n•unban\ncleanmembers```');
+        message.channel.send('<@'+message.author.id+'> here is my command list:\n```•help\n•ping\n•exile\n•setrank\n•promote\n•demote\n•post\n•shout\n•ban\n•unban\n•cleanmembers```');
     },
     ping: function(message, msg) {
         var author = '<@'+message.author.id+'>';
