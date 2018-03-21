@@ -36,6 +36,9 @@ function getIdFromName(message, name) {
 }
 
 var commands = {
+    help: function(message, msg) {
+        message.channel.send('<@'+message.author.id+'> here is my command list:\n```•help\n•ping\n•exile\n•setrank\n•promote\n•demote\n•post\n•shout\n•ban\n•unban\ncleanmembers```');
+    },
     ping: function(message, msg) {
         var author = '<@'+message.author.id+'>';
         message.channel.send(author+' pong ('+Math.floor(bot.ping*100)/100+' MS)');
