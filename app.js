@@ -82,7 +82,7 @@ var commands = {
             })
         }).catch(function(err){LogError(message, err)})
     },
-    unfollow: function(message, msg) {
+    unfollow: function(message, msg) { //strictly for testing purposes to make sure roblox-js is working.
         var target = msg;
         roblox.getIdFromUsername(target).then(function(id) {
             roblox.unfollow(id).then(function() {
@@ -90,7 +90,7 @@ var commands = {
             }).catch(function(err){LogError(message, err)});
         }).catch(function(err){LogError(message, err)})
     },
-    follow: function(message, msg) {
+    follow: function(message, msg) { //same as above; only for testing purposes.
         var target = msg;
         roblox.getIdFromUsername(target).then(function(id) {
             roblox.follow(id).then(function() {
