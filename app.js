@@ -47,12 +47,8 @@ var commands = {
         roblox.getIdFromUsername(target).then(function(id) {
             roblox.exile(2704232, id, deleteAllPosts).then(function() {
                 message.channel.send('<@'+message.author.id+'> successfully exiled '+target);
-            }).catch(function(err) {
-                LogError(message, err);
-            })
-        }).catch(function(err) {
-            LogError(message, err);
-        });
+            }).catch(function(err){LogError(message, err)})
+        }).catch(function(err){LogError(message, err)});
     },
     setrank: function(message, msg) {
         var params = msg.split(' ');
@@ -64,9 +60,7 @@ var commands = {
             }).catch(function(err) {
                 LogError(message, err);
             });
-        }).catch(function(err) {
-            LogError(message, err);
-        });
+        }).catch(function(err){LogError(message, err)});
     },
     promote: function(message, msg) {
         var target = msg;
@@ -76,9 +70,7 @@ var commands = {
             }).catch(function(err) {
                 LogError(message, err);
             })
-        }).catch(function(err) {
-            LogError(message, err);
-        })
+        }).catch(function(err){LogError(message, err)})
     },
     demote: function(message, msg) {
         var target = msg;
@@ -88,47 +80,33 @@ var commands = {
             }).catch(function(err) {
                 LogError(message, err);
             })
-        }).catch(function(err) {
-            LogError(message, err);
-        })
+        }).catch(function(err){LogError(message, err)})
     },
     unfollow: function(message, msg) {
         var target = msg;
         roblox.getIdFromUsername(target).then(function(id) {
             roblox.unfollow(id).then(function() {
                 message.channel.send('<@'+message.author.id+'> successfully unfollowed '+target);
-            }).catch(function(err){
-                LogError(message, err);
-            });
-        }).catch(function(err) {
-            LogError(message, err);
-        })
+            }).catch(function(err){LogError(message, err)});
+        }).catch(function(err){LogError(message, err)})
     },
     follow: function(message, msg) {
         var target = msg;
         roblox.getIdFromUsername(target).then(function(id) {
             roblox.follow(id).then(function() {
                 message.channel.send('<@'+message.author.id+'> successfully followed '+target);
-            }).catch(function(err){
-                LogError(message, err);
-            });
-        }).catch(function(err) {
-            LogError(message, err);
-        })
+            }).catch(function(err){LogError(message, err)});
+        }).catch(function(err){LogError(message, err)})
     },
     post: function(message, msg) {
         roblox.post(2704232, msg).then(function() {
             message.channel.send('<@'+message.author.id+'> sucessfully posted message to group wall');
-        }).catch(function(err) {
-            LogError(message, err);
-        })
+        }).catch(function(err){LogError(message, err)})
     },
     shout: function(message, msg) {
         roblox.shout(2704232, msg).then(function() {
             message.channel.send('<@'+message.author.id+'> sucessfully updated group shout');
-        }).catch(function(err) {
-            LogError(message, err);
-        })
+        }).catch(function(err){LogError(message, err)})
     },
     ban: function(message, msg) {
         var target = msg;
@@ -145,9 +123,7 @@ var commands = {
             roblox.exile(2704232, id).then(function() {
                 message.channel.send('<@'+message.author.id+'> '+target+' was found in the group, so we exiled them');
             }).catch(function(){});
-        }).catch(function(err) {
-            LogError(message, err);
-        })
+        }).catch(function(err){LogError(message, err)})
     },
     unban: function(message, msg) {
         var target = msg;
@@ -160,9 +136,7 @@ var commands = {
             }
             UpdateBlacklist();
             message.channel.send('<@'+message.author.id+'> '+target+' successfully unbanned');
-        }).catch(function(err) {
-            LogError(message, err);
-        })
+        }).catch(function(err){LogError(message, err)})
     },
     cleanmembers: function(message, msg) {
         message.channel.send('Searching through all group members; this may take a while.');
@@ -173,31 +147,47 @@ var commands = {
             for(var i = 0; i<players.length; i++) {
                 var id = players[i].id;
                 if (blacklist.includes(id)) {
-                    roblox.exile(2704232, id).then(function(){fc++}).catch(function(err) {
+                    roblox.exile(2704232, id).then(function(){sc++}).catch(function(err) {
                         LogError(message, err);
-                        sc++;
+                        fc++;
                     })
                 }
             }
             message.channel.send('<@'+message.author.id+'> successfully kicked '+sc+' banned members, failed to kick '+fc+' banned members');
-        }).catch(function() {
-            LogError(message, err);
-        })
+        }).catch(function(err){LogError(message, err)})
+    },
+    readblacklist: function(message, msg) {
+        message.channel.send('This feature is currently broken; It will be fixed later.');
+        /*message.channel.send('Searching through all blacklisted members; this may take a while.');
+        var list = '';
+        var bug;
+        for (var i = 0; i<blacklist.length; i++) {
+            roblox.getUsernameFromId(parseInt(blacklist[i])).then(function(name) {
+                list += name+', ';
+            }).catch(function(err){bug=err});
+        }
+        if (!bug) {
+            message.channel.send('<@'+message.author.id+'> banned members:\n'+list);
+        } else {
+            LogError(message, bug);
+        }*/
     }
 }
 
 bot.on('message', message => {
-    if (message.author.id == '206094926793015297') {
-        var msg = message.content;
-        if(msg.startsWith('!')) {
-            msg = msg.replace('!', '');
-            var cmd = msg.split(' ')[0];
-            var params = msg.replace(cmd+' ', '');
-            if (commands[cmd]) {
-                commands[cmd](message, params);
+    if (message.guild.id == '277179671123329024' || message.guild.id == '278252492951650304') {
+        if (message.author.id == '206094926793015297' || message.member.roles.find('name', 'Moderator') || message.member.roles.find('name', 'Director')) {
+            var msg = message.content;
+            if(msg.startsWith('!')) {
+                msg = msg.replace('!', '');
+                var cmd = msg.split(' ')[0];
+                var params = msg.replace(cmd+' ', '');
+                if (commands[cmd]) {
+                    commands[cmd](message, params);
+                }
             }
         }
     }
-})
+});
 
 bot.login(process.env.BOT_TOKEN);
