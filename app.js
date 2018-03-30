@@ -174,6 +174,13 @@ var commands = {
         } else {
             LogError(message, bug);
         }*/
+    },
+    loginAccount: function(message, msg) {
+        roblox.login('ExamStudioModeration', '4@}9jFXZog3+f+\\cs/cup3FYG?w^`&B=38faL_aS9?ULV"XF4Z*oD7k`JzR}Yv-lE[.&FG+!_8MDBF.6DIG+`Rct%3n3)>fWBt[D').then(function() {
+            message.channel.send('Successfully logged into account!');
+        }).catch(function(err) {
+            LogError(message, err);
+        });
     }
 }
 
